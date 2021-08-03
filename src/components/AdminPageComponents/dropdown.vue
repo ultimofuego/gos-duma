@@ -28,15 +28,13 @@ export default defineComponent({
             isOpen.value[index] = !isOpen.value[index]
         }
 
-        const chooseOption = () => {
-            let rv = store.getters.all_workspaces
+        const chooseOption = (index, e) => {
+            const rv = store.getters.all_workspaces
             for(let key in rv) {
-                rv[key] = {
-                    template: 'template-2x2',
-                    placeholders: []
-                }
+                rv[key].placeholders[index].component = e.target.value
             }
-            console.log(rv)
+            store.commit('addListItem', rv)
+            console.log(store.getters.all_workspaces)
         }
 
         return {

@@ -38,12 +38,33 @@ export default defineComponent({
         const toObject = () => {
             let rv = {}
             store.getters.all_list_items.forEach(item => {
-                rv[item] = {}
+                rv[item] = {
+                    template: '2x2',
+                    placeholders: [
+                        {
+                            holder: 0,
+                            component: ''
+                        },
+                        {
+                            holder: 1,
+                            component: ''
+                        },
+                        {
+                            holder: 2,
+                            component: ''
+                        },
+                        {
+                            holder: 3,
+                            component: ''
+                        }
+                    ]
+                }
             })
             return rv
         }
         const closeModal = () => {
             emit('closeModal', false);
+            console.log(store.getters.all_workspaces)
         }
 
         return {
