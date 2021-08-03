@@ -22,7 +22,7 @@
                 <a :href="workspace">{{workspace}}</a>
             </li>
         </ul>
-        <template-2x2></template-2x2>
+        <template-2x2 v-if="$store.getters.all_list_items.length"></template-2x2>
     </div>
     <modal-window v-if="show" @closeModal="close"></modal-window>
 </template>
@@ -31,7 +31,7 @@
 import { defineComponent } from 'vue'
 import ModalWindow from './modal-window.vue'
 import Template2x2 from '../templates/template-2x2.vue'
-import {ref} from 'vue'
+import { ref, reactive } from 'vue'
 
 export default defineComponent({
     name: "main-admin-page",
@@ -46,26 +46,12 @@ export default defineComponent({
         }
         const showModal = () => {
             show.value = true
-            console.log(show.value)
         }
 
         return {
             show, close, showModal
         }
     }
-    // data() {
-    //     return {
-    //         show: false
-    //     }
-    // },
-    // methods: {
-    //     close() {
-    //         this.show = false
-    //     },
-    //     showModal() {
-    //         this.show = true
-    //     }
-    // }
 })
 </script>
 

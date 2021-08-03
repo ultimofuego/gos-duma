@@ -33,7 +33,7 @@ export default defineComponent({
             for(let key in rv) {
                 rv[key].placeholders[index].component = e.target.value
             }
-            store.commit('addListItem', rv)
+            store.commit('updateWorkspaces', rv)
             console.log(store.getters.all_workspaces)
         }
 

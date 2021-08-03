@@ -12,7 +12,6 @@
                 </form>
             </slot>
             <slot name="footer">
-                
             </slot>
         </div>
     </div>
@@ -64,7 +63,6 @@ export default defineComponent({
         }
         const closeModal = () => {
             emit('closeModal', false);
-            console.log(store.getters.all_workspaces)
         }
 
         return {

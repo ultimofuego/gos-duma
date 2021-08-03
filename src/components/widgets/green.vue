@@ -6,7 +6,7 @@
 
 <script>
 export default {
-    name: 'red'
+    name: 'green'
 }
 </script>
 
@@ -14,7 +14,7 @@ export default {
 .item {
     display: block;
     margin: 0 auto;
-    background: red;
+    background: green;
     width: 100px;
     height: 100px;
 }

@@ -2,38 +2,60 @@
     <div class="grid2x2">
         <div class="box box1">
             <dropdown index="0"></dropdown>
-            <component :is="store.getters.all_workspaces.placeholders[0].component"></component>
+            <div v-if="flagComponentName(0)">
+                <component class="first_component" :is="getComponentName(0)"></component>
+            </div>
         </div>
         <div class="box box2">
             <dropdown index="1"></dropdown>
-            <component :is="store.getters.all_workspaces.placeholders[1].component"></component>
+            <div v-if="flagComponentName(1)">
+                <component class="first_component" :is="getComponentName(1)"></component>
+            </div>
         </div>
         <div class="box box3">
-            <dropdown index="2"><component :is="store.getters.all_workspaces.placeholders[2].component"></component></dropdown>
+            <dropdown index="2"></dropdown>
+            <div v-if="flagComponentName(2)">
+                <component class="first_component" :is="getComponentName(2)"></component>
+            </div>
         </div>
         <div class="box box4">
-            <dropdown index="3"><component :is="store.getters.all_workspaces.placeholders[3].component"></component></dropdown>
+            <dropdown index="3"></dropdown>
+            <div v-if="flagComponentName(3)">
+                <component class="first_component" :is="getComponentName(3)"></component>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, computed } from 'vue'
 import Dropdown from '../AdminPageComponents/dropdown.vue'
-import {useStore} from 'vuex'
 import Red from '../widgets/red.vue'
-
+import Yellow from '../widgets/yellow.vue'
+import Green from '../widgets/green.vue'
+import { useStore } from 'vuex'
 
 export default defineComponent({
     name: 'template-2x2',
-    components: { Dropdown, Red },
+    components: { Dropdown, Red, Yellow, Green },
     setup() {
+        const placeholders = ref([])
         const store = useStore()
-        const componentNames = ref([])
-        const list = ref(store.getters.all_workspaces.placeholders)
-        
+
+        const flagComponentName = (index) => {
+            //console.log(store.getters.all_workspaces[store.getters.all_list_items[0]])
+            if(typeof store.getters.all_workspaces[store.getters.all_list_items[0]].placeholders[index].component == "undefined") {
+                return false
+            }
+            else { return true }
+        }
+
+        const getComponentName = (index) => {
+            return store.getters.all_workspaces[store.getters.all_list_items[0]].placeholders[index].component
+        }
+    
         return {
-            componentNames, store, list
+            placeholders, store, getComponentName, flagComponentName
         }
     }
 })
