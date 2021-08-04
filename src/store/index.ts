@@ -6,7 +6,12 @@ export const store = createStore({
   state<State>() {
     return {
       list_items: <any>[],
-      workspaces: <unknown>{}
+      workspaces: <unknown>{},
+      widgets: <unknown>[ {
+        component: 'Red',
+        holder: '',
+        properties: <unknown>[]
+      } ]
     } 
   },
   mutations: {

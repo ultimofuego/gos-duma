@@ -7,6 +7,7 @@
             <button class="dropdown-item" type="button" value="Red" @click="chooseOption(indexOfDropdown, $event)">Red</button>
             <button class="dropdown-item" type="button" value="Yellow" @click="chooseOption(indexOfDropdown, $event)">Yellow</button>
             <button class="dropdown-item" type="button" value="Green" @click="chooseOption(indexOfDropdown, $event)">Green</button>
+            <button class="dropdown-item" type="button" value="Image" @click="chooseOption(indexOfDropdown, $event)">Image</button>
         </div>
     </div>
 </template>
@@ -32,6 +33,9 @@ export default defineComponent({
             const rv = store.getters.all_workspaces
             for(let key in rv) {
                 rv[key].placeholders[index].component = e.target.value
+                if(rv[key].placeholders[index].component == 'Image') {
+                    rv[key].placeholders[index].properties.push({url: ''})
+                }
             }
             store.commit('updateWorkspaces', rv)
             console.log(store.getters.all_workspaces)

@@ -42,19 +42,23 @@ export default defineComponent({
                     placeholders: [
                         {
                             holder: 0,
-                            component: ''
+                            component: '',
+                            properties: []
                         },
                         {
                             holder: 1,
-                            component: ''
+                            component: '',
+                            properties: []
                         },
                         {
                             holder: 2,
-                            component: ''
+                            component: '',
+                            properties: []
                         },
                         {
                             holder: 3,
-                            component: ''
+                            component: '',
+                            properties: []
                         }
                     ]
                 }
