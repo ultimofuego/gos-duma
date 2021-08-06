@@ -1,4 +1,5 @@
 import { createStore } from 'vuex'
+import axios from 'axios'
 
 export type State = {list_items: any[]}
 
@@ -7,12 +8,17 @@ export const store = createStore({
     return {
       list_items: <any>[],
       workspaces: <unknown>{},
-      widgets: <unknown>[ {
-        component: 'Red',
-        holder: '',
-        properties: <unknown>[]
-      } ]
+      widgets: <any>[]
     } 
+  },
+  actions: {
+    fetchAllWidgets( {commit} ) {
+      axios.get('/back/widget').then((response) => { commit('addWidget', response)})
+      .catch((error) => {
+        console.log(error)
+        return error;
+      })
+    }
   },
   mutations: {
     addListItem(state, list_items) {
@@ -23,6 +29,9 @@ export const store = createStore({
     },
     updateWorkspaces(state, workspaces) {
       state.workspaces = workspaces
+    },
+    addWidget(state, widgets) {
+      state.widgets.push(widgets)
     }
   },
   getters: {

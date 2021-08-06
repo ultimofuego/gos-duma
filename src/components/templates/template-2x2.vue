@@ -44,7 +44,6 @@ export default defineComponent({
         const store = useStore()
 
         const flagComponentName = (index) => {
-            //console.log(store.getters.all_workspaces[store.getters.all_list_items[0]])
             if(typeof store.getters.all_workspaces[store.getters.all_list_items[0]].placeholders[index].component == "undefined") {
                 return false
             }

@@ -31,7 +31,8 @@
 import { defineComponent } from 'vue'
 import ModalWindow from './modal-window.vue'
 import Template2x2 from '../templates/template-2x2.vue'
-import { ref, reactive } from 'vue'
+import { ref, onMounted } from 'vue'
+import { useStore } from 'vuex'
 
 export default defineComponent({
     name: "main-admin-page",
@@ -40,6 +41,15 @@ export default defineComponent({
     },
     setup() {
         const show = ref(false)
+        const store = useStore()
+
+        onMounted(() => {
+            store.dispatch('fetchAllWidgets').then(res => {
+                if(res.data) {
+                    console.log('data arrived!')
+                }
+            })
+        })
 
         const close = (val) => {
             show.value = val
@@ -49,7 +59,7 @@ export default defineComponent({
         }
 
         return {
-            show, close, showModal
+            show, store, close, showModal
         }
     }
 })
