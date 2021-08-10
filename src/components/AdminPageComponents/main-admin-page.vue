@@ -27,13 +27,13 @@
     <modal-window v-if="show" @closeModal="close"></modal-window>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from 'vue'
 import ModalWindow from './modal-window.vue'
 import Template2x2 from '../templates/template-2x2.vue'
 import { ref, onMounted } from 'vue'
 import { useStore } from 'vuex'
-import useWidgets from '@/use/widgets'
+import getItem from '@/services/DataService'
 
 export default defineComponent({
     name: "main-admin-page",
@@ -45,13 +45,12 @@ export default defineComponent({
         const store = useStore()
 
         onMounted(() => {
-            const {widgets} = useWidgets()
-            console.log(widgets)
+            getItem('widget').then((response) => {
+                console.log(response.data.content)
+            })
         })
 
-        
-
-        const close = (val) => {
+        const close = (val: boolean) => {
             show.value = val
         }
         const showModal = () => {
