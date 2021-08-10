@@ -13,7 +13,7 @@ export const store = createStore({
   },
   actions: {
     fetchAllWidgets( {commit} ) {
-      axios.get('/back/widget').then((response) => { commit('addWidget', response)})
+      axios.get('/back/widget').then((response) => { commit('addWidget', response.data)})
       .catch((error) => {
         console.log(error)
         return error;

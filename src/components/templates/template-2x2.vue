@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { defineComponent, ref, computed } from 'vue'
+import { defineComponent, ref} from 'vue'
 import Dropdown from '../AdminPageComponents/dropdown.vue'
 import Red from '../widgets/red.vue'
 import Yellow from '../widgets/yellow.vue'
