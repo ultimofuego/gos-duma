@@ -27,17 +27,25 @@
     </div>
 </template>
 
+<<<<<<< HEAD
 <script lang="ts">
 import { defineComponent, onMounted, ref} from 'vue'
+=======
+<script>
+import { defineComponent, ref} from 'vue'
+>>>>>>> 26e7c510f56248f2564f81ac062fd03fad2b59bb
 import Dropdown from '../AdminPageComponents/dropdown.vue'
 import Red from '../widgets/red.vue'
 import Yellow from '../widgets/yellow.vue'
 import Green from '../widgets/green.vue'
 import Image from '../widgets/image.vue'
 import { useStore } from 'vuex'
+<<<<<<< HEAD
 import Widget from '@/types/Widget'
 import ResponseData from '@/types/ResponseData'
 import getItem from '@/services/DataService'
+=======
+>>>>>>> 26e7c510f56248f2564f81ac062fd03fad2b59bb
 
 export default defineComponent({
     name: 'template-2x2',
@@ -45,6 +53,7 @@ export default defineComponent({
     setup() {
         const placeholders = ref([])
         const store = useStore()
+<<<<<<< HEAD
         const widgets : Widget[] = []
 
         onMounted(() => {
@@ -54,13 +63,21 @@ export default defineComponent({
         })
 
         const flagComponentName = (index: number) => {
+=======
+
+        const flagComponentName = (index) => {
+>>>>>>> 26e7c510f56248f2564f81ac062fd03fad2b59bb
             if(typeof store.getters.all_workspaces[store.getters.all_list_items[0]].placeholders[index].component == "undefined") {
                 return false
             }
             else { return true }
         }
 
+<<<<<<< HEAD
         const getComponentName = (index: number) => {
+=======
+        const getComponentName = (index) => {
+>>>>>>> 26e7c510f56248f2564f81ac062fd03fad2b59bb
             return store.getters.all_workspaces[store.getters.all_list_items[0]].placeholders[index].component
         }
     
