@@ -28,7 +28,6 @@
 </template>
 
 <script lang="ts">
-<<<<<<< HEAD
 import { defineComponent, ref, onMounted } from 'vue'
 import ModalWindow from './modal-window.vue'
 import Template2x2 from '../templates/template-2x2.vue'
@@ -36,14 +35,6 @@ import { useStore } from 'vuex'
 import Widget from '@/types/Widget'
 import getItem from '@/services/DataService'
 import ResponseData from '@/types/ResponseData'
-=======
-import { defineComponent } from 'vue'
-import ModalWindow from './modal-window.vue'
-import Template2x2 from '../templates/template-2x2.vue'
-import { ref, onMounted } from 'vue'
-import { useStore } from 'vuex'
-import getItem from '@/services/DataService'
->>>>>>> 26e7c510f56248f2564f81ac062fd03fad2b59bb
 
 export default defineComponent({
     name: "main-admin-page",
@@ -53,18 +44,11 @@ export default defineComponent({
     setup() {
         const show = ref(false)
         const store = useStore()
-<<<<<<< HEAD
         const templates: Widget[] = []
 
         onMounted(() => {
-                getItem('templates').then((response: ResponseData) => {
+                getItem('template/all').then((response: ResponseData) => {
                 templates.push(response.data)
-=======
-
-        onMounted(() => {
-            getItem('widget').then((response) => {
-                console.log(response.data.content)
->>>>>>> 26e7c510f56248f2564f81ac062fd03fad2b59bb
             })
         })
 
