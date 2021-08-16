@@ -27,14 +27,17 @@
     </div>
 </template>
 
-<script>
-import { defineComponent, ref} from 'vue'
+<script lang="ts">
+import { defineComponent, onMounted, ref} from 'vue'
 import Dropdown from '../AdminPageComponents/dropdown.vue'
 import Red from '../widgets/red.vue'
 import Yellow from '../widgets/yellow.vue'
 import Green from '../widgets/green.vue'
 import Image from '../widgets/image.vue'
 import { useStore } from 'vuex'
+import Widget from '@/types/Widget'
+import ResponseData from '@/types/ResponseData'
+import getItem from '@/services/DataService'
 
 export default defineComponent({
     name: 'template-2x2',
@@ -42,15 +45,22 @@ export default defineComponent({
     setup() {
         const placeholders = ref([])
         const store = useStore()
+        const widgets : Widget[] = []
 
-        const flagComponentName = (index) => {
+        onMounted(() => {
+            getItem('widget').then((response: ResponseData) => {
+                widgets.push(response.data)
+            })
+        })
+
+        const flagComponentName = (index: number) => {
             if(typeof store.getters.all_workspaces[store.getters.all_list_items[0]].placeholders[index].component == "undefined") {
                 return false
             }
             else { return true }
         }
 
-        const getComponentName = (index) => {
+        const getComponentName = (index: number) => {
             return store.getters.all_workspaces[store.getters.all_list_items[0]].placeholders[index].component
         }
     
