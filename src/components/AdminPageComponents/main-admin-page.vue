@@ -17,12 +17,12 @@
         </div>
         <ul class="list-of-spaces">
             <li
-                v-for="(workspace, index) in $store.getters.all_list_items"
+                v-for="(workspace, index) in workspaces"
                 :key="index">
                 <a :href="workspace">{{workspace}}</a>
             </li>
         </ul>
-        <template-2x2 v-if="$store.getters.all_list_items.length"></template-2x2>
+        <!-- <template-2x2 v-if="$store.getters.workspaces.content.length"></template-2x2> -->
     </div>
     <modal-window v-if="show" @closeModal="close"></modal-window>
 </template>
@@ -30,7 +30,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import ModalWindow from './modal-window.vue'
-import Template2x2 from '../templates/template-2x2.vue'
+//import Template2x2 from '../templates/template-2x2.vue'
 import { ref, onMounted } from 'vue'
 import { useStore } from 'vuex'
 import getItem from '@/services/DataService'
@@ -38,17 +38,24 @@ import getItem from '@/services/DataService'
 export default defineComponent({
     name: "main-admin-page",
     components: {
-        ModalWindow, Template2x2
+        ModalWindow, 
     },
     setup() {
+    
         const show = ref(false)
         const store = useStore()
 
-        onMounted(() => {
+        /*onCreated(() => {
             getItem('widget').then((response) => {
                 console.log(response.data.content)
             })
-        })
+
+            getItem('workspace/all').then((response) => {
+                workspaces.value.push(response.data.content)
+                console.log(response.data.content[0])
+            })
+
+        })*/
 
         const close = (val: boolean) => {
             show.value = val

@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
 import axios from 'axios'
+import getItem from '@/services/DataService'
 
 export type State = {list_items: any[]}
 
@@ -9,15 +10,20 @@ export const store = createStore({
       list_items: <any>[],
       workspaces: <unknown>{},
       widgets: <any>[]
-    } 
+    }
   },
   actions: {
     fetchAllWidgets( {commit} ) {
-      axios.get('/back/widget').then((response) => { commit('addWidget', response.data)})
+      axios.get('/back/widget').then((response) => { commit('addWidget', response.data.content)})
       .catch((error) => {
         console.log(error)
         return error;
       })
+    },
+    fetchWorkspaces( {commit} ) {
+      getItem('/workspace/all').then((response) => {
+      commit('updateWorkspaces', response.data.content)
+    })
     }
   },
   mutations: {
