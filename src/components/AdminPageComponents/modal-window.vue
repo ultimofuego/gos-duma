@@ -7,7 +7,7 @@
             <slot name="body">
                 <form class="modalForm" @submit.prevent="addSpaceName">
                     <label>Введите название пространства</label>
-                    <input type="string" v-model="workspace" id="spacename" required>
+                    <input type="string" v-model="workspace.name" id="spacename" placeholder="Workspace name" required>
                     <button type="submit" class="addBtn">Добавить</button>
                 </form>
             </slot>
@@ -20,51 +20,27 @@
 <script>
 import { defineComponent } from 'vue'
 import { useStore } from 'vuex'
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 
 export default defineComponent({
     name: 'modal-window',
     emits: ['closeModal'],
     setup(props, {emit}) {
-        const workspace = ref('')
+        const workspace = reactive({
+            id: '',
+            name: '',
+            templateId: ''
+        })
         const store = useStore()
 
         const addSpaceName = () => {
-            store.commit('addListItem', workspace.value)
-            store.commit('updateWorkspaces', toObject())
+            //store.commit('addWorkspace', workspace)
+            //store.commit('updateWorkspaces', workspace.value)
+            store.dispatch('pushToDB', workspace)
+            console.log(store.getters.all_workspaces)
             closeModal()
         }
-        const toObject = () => {
-            let rv = {}
-            store.getters.all_list_items.forEach(item => {
-                rv[item] = {
-                    template: '2x2',
-                    placeholders: [
-                        {
-                            holder: 0,
-                            component: '',
-                            properties: []
-                        },
-                        {
-                            holder: 1,
-                            component: '',
-                            properties: []
-                        },
-                        {
-                            holder: 2,
-                            component: '',
-                            properties: []
-                        },
-                        {
-                            holder: 3,
-                            component: '',
-                            properties: []
-                        }
-                    ]
-                }
-            })
-            return rv
-        }
+    
         const closeModal = () => {
             emit('closeModal', false);
         }
@@ -74,7 +50,6 @@ export default defineComponent({
             all_list_items: store.getters.all_list_items,
             all_workspaces: store.getters.all_workspaces,
             addSpaceName,
-            toObject,
             closeModal
         }
 

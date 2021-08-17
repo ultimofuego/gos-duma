@@ -17,9 +17,10 @@
         </div>
         <ul class="list-of-spaces">
             <li
-                v-for="(workspace, index) in workspaces"
+                v-for="(workspace, index) in $store.state.workspaces"
                 :key="index">
-                <a :href="workspace">{{workspace}}</a>
+                <a :href="workspace.name">{{workspace.name}}</a>
+                <button class="btn" @click="removeWorkspace(index)">X</button>
             </li>
         </ul>
         <!-- <template-2x2 v-if="$store.getters.workspaces.content.length"></template-2x2> -->
@@ -28,18 +29,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from 'vue'
+import { defineComponent} from 'vue'
 import ModalWindow from './modal-window.vue'
-<<<<<<< HEAD
 //import Template2x2 from '../templates/template-2x2.vue'
 import { ref, onMounted } from 'vue'
-=======
-import Template2x2 from '../templates/template-2x2.vue'
->>>>>>> 4bc39dd89990e4bf6e1878d6f3a99701ecef96dd
 import { useStore } from 'vuex'
-import Widget from '@/types/Widget'
+//import Widget from '@/types/Widget'
 import getItem from '@/services/DataService'
-import ResponseData from '@/types/ResponseData'
+//import ResponseData from '@/types/ResponseData'
 
 export default defineComponent({
     name: "main-admin-page",
@@ -47,28 +44,22 @@ export default defineComponent({
         ModalWindow, 
     },
     setup() {
-    
         const show = ref(false)
         const store = useStore()
-        const templates: Widget[] = []
 
-<<<<<<< HEAD
-        /*onCreated(() => {
+        onMounted(() => {
             getItem('widget').then((response) => {
                 console.log(response.data.content)
-=======
-        onMounted(() => {
-                getItem('template/all').then((response: ResponseData) => {
-                templates.push(response.data)
->>>>>>> 4bc39dd89990e4bf6e1878d6f3a99701ecef96dd
             })
 
-            getItem('workspace/all').then((response) => {
-                workspaces.value.push(response.data.content)
-                console.log(response.data.content[0])
-            })
+            store.dispatch('fetchWorkspaces')
+        })
 
-        })*/
+        const removeWorkspace = (index: number) => {
+            store.commit('removeWorkspace', index)
+            
+            console.log(index)
+        }
 
         const close = (val: boolean) => {
             show.value = val
@@ -78,7 +69,7 @@ export default defineComponent({
         }
 
         return {
-            show, store, close, showModal
+            show, store, close, showModal, removeWorkspace
         }
     }
 })
@@ -193,6 +184,31 @@ export default defineComponent({
             }
         }
     }
+
+    .btn {
+        display: inline-block;	
+	    padding: 0px 7px;
+        margin-left: 20px;
+        outline: none;
+	    border: none;  
+	    border-radius: 4px;
+	    height: 20px;
+	    line-height: 8px;
+	    font-size: 8px;
+	    font-weight: 900;
+	    text-decoration: none;
+	    color: #fff;
+	    background: #60a3d8 linear-gradient(#89bbe2, #60a3d8 50%, #378bce);
+	    position: relative;
+	    overflow:hidden;
+	    vertical-align: top;
+	    cursor: pointer;
+	    user-select: none;
+	    appearance: none;
+	    touch-action: manipulation; 
+	    z-index: 1;
+    }
+
 
     @media screen and (max-height: 450px) {
         .sidenav { padding-top: 15px; }
