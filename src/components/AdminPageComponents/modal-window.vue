@@ -8,6 +8,8 @@
                 <form class="modalForm" @submit.prevent="addSpaceName">
                     <label>Введите название пространства</label>
                     <input type="string" v-model="workspace.name" id="spacename" placeholder="Workspace name" required>
+                    <label>Выберите шаблон</label>
+                    <input type="string" v-model="template.name" id="templatename" placeholder="Template name" required>
                     <button type="submit" class="addBtn">Добавить</button>
                 </form>
             </slot>
@@ -26,16 +28,23 @@ export default defineComponent({
     name: 'modal-window',
     emits: ['closeModal'],
     setup(props, {emit}) {
+
         const workspace = reactive({
             id: '',
             name: '',
             templateId: ''
         })
+
+        const template = reactive({
+            templateId: '',
+            name: '',
+            code: '',
+            component: ''
+        })
+
         const store = useStore()
 
         const addSpaceName = () => {
-            //store.commit('addWorkspace', workspace)
-            //store.commit('updateWorkspaces', workspace.value)
             store.dispatch('pushToDB', workspace)
             console.log(store.getters.all_workspaces)
             closeModal()
@@ -47,6 +56,7 @@ export default defineComponent({
 
         return {
             workspace,
+            template,
             all_list_items: store.getters.all_list_items,
             all_workspaces: store.getters.all_workspaces,
             addSpaceName,

@@ -32,10 +32,16 @@ export const store = createStore({
       })
     },
     pushToDB( {commit}, item ) {
-      axios.post('/back/workspace/all', item).then((response) => {
-        console.log(response)
+      axios.post('/back/workspace', item).then((response) => {
+        console.log(response.data)
         commit('addWorkspace', response.data)} )
-    }
+    },
+    removeWorkspace( {commit}, obj ) {
+      axios.delete(`/back/workspace/${obj.id}`).then((response) => {
+        console.log(response)
+        commit('removeWorkspace', obj.idx)
+      })
+    } 
   },
   mutations: {
     addListItem(state, list_items) {

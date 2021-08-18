@@ -19,8 +19,8 @@
             <li
                 v-for="(workspace, index) in $store.state.workspaces"
                 :key="index">
-                <a :href="workspace.name">{{workspace.name}}</a>
-                <button class="btn" @click="removeWorkspace(index)">X</button>
+                <a :href="workspace.id">{{workspace.name}}</a>
+                <button class="btn" @click="removeWorkspace({id: workspace.id, idx: index})">X</button>
             </li>
         </ul>
         <!-- <template-2x2 v-if="$store.getters.workspaces.content.length"></template-2x2> -->
@@ -55,10 +55,8 @@ export default defineComponent({
             store.dispatch('fetchWorkspaces')
         })
 
-        const removeWorkspace = (index: number) => {
-            store.commit('removeWorkspace', index)
-            
-            console.log(index)
+        const removeWorkspace = (obj: Record<string,unknown>) => {
+            store.dispatch('removeWorkspace', obj)
         }
 
         const close = (val: boolean) => {
