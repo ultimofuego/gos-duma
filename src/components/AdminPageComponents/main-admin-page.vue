@@ -31,12 +31,8 @@
 <script lang="ts">
 import { defineComponent} from 'vue'
 import ModalWindow from './modal-window.vue'
-//import Template2x2 from '../templates/template-2x2.vue'
 import { ref, onMounted } from 'vue'
 import { useStore } from 'vuex'
-//import Widget from '@/types/Widget'
-import getItem from '@/services/DataService'
-//import ResponseData from '@/types/ResponseData'
 
 export default defineComponent({
     name: "main-admin-page",
@@ -48,11 +44,8 @@ export default defineComponent({
         const store = useStore()
 
         onMounted(() => {
-            getItem('widget').then((response) => {
-                console.log(response.data.content)
-            })
-
             store.dispatch('fetchWorkspaces')
+            store.dispatch('fetchTemplates')
         })
 
         const removeWorkspace = (obj: Record<string,unknown>) => {

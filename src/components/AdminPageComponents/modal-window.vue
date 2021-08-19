@@ -9,7 +9,9 @@
                     <label>Введите название пространства</label>
                     <input type="string" v-model="workspace.name" id="spacename" placeholder="Workspace name" required>
                     <label>Выберите шаблон</label>
-                    <input type="string" v-model="template.name" id="templatename" placeholder="Template name" required>
+                    <select v-model="template_name">
+                        <option v-for="(template,index) in $store.state.template" :key="index">{{template.name}}</option>
+                    </select>
                     <button type="submit" class="addBtn">Добавить</button>
                 </form>
             </slot>
@@ -20,9 +22,8 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent, reactive, ref } from 'vue'
 import { useStore } from 'vuex'
-import { ref, reactive } from 'vue'
 
 export default defineComponent({
     name: 'modal-window',
@@ -35,18 +36,18 @@ export default defineComponent({
             templateId: ''
         })
 
-        const template = reactive({
-            templateId: '',
-            name: '',
-            code: '',
-            component: ''
-        })
+        const template_name = ref('')
 
         const store = useStore()
 
         const addSpaceName = () => {
-            store.dispatch('pushToDB', workspace)
-            console.log(store.getters.all_workspaces)
+            console.log(workspace)
+            store.state.template.forEach((item) => {
+                if(item.name == template_name.value) {
+                    workspace.templateId = item.id
+                    store.dispatch('pushToDB', workspace)
+                }
+            })
             closeModal()
         }
     
@@ -56,7 +57,7 @@ export default defineComponent({
 
         return {
             workspace,
-            template,
+            template_name,
             all_list_items: store.getters.all_list_items,
             all_workspaces: store.getters.all_workspaces,
             addSpaceName,

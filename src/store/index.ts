@@ -10,7 +10,8 @@ export const store = createStore({
     return {
       list_items: <any>[],
       workspaces: <any>[],
-      widgets: <any>[]
+      widgets: <any>[],
+      template: <any>[]
     }
   },
   actions: {
@@ -24,6 +25,16 @@ export const store = createStore({
     fetchWorkspaces( {commit} ) {
         getItem('/workspace/all').then((response: ResponseData) => {
         commit('updateWorkspaces', response.data.content)
+        return response.data.content
+      })
+      .catch(error => {
+        console.log(error)
+        return error
+      })
+    },
+    fetchTemplates( {commit} ) {
+      getItem('template/all').then((response: ResponseData) => {
+        commit('updateTemplates', response.data.content)
         return response.data.content
       })
       .catch(error => {
@@ -61,6 +72,9 @@ export const store = createStore({
     },
     updateWorkspaces(state, workspaces) {
       state.workspaces = workspaces
+    },
+    updateTemplates(state, template) {
+      state.template = template
     }
   },
   getters: {
