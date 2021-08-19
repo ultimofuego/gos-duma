@@ -3,7 +3,7 @@ import axios from 'axios'
 import getItem from '@/services/DataService'
 import ResponseData from '@/types/ResponseData'
 
-export type State = {list_items: any[]}
+export type State = {list_items: any[], template: any[]}
 
 export const store = createStore({
   state<State>() {

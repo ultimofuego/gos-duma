@@ -12,7 +12,7 @@
                 <!-- <a :href="workspace.id">{{workspace.name}}</a> -->
                 <router-link
                 :to = " {
-                    name: workspace.component,
+                    name: `template-2x2`,
                     path: `/${workspace.templateId}`
                 } "
                 >{{workspace.name}}</router-link>
@@ -39,11 +39,22 @@ export default defineComponent({
         const router = useRoute()
         const show = ref(false)
         const store = useStore()
+        //const templatesName = ref('')
 
         onMounted(() => {
             store.dispatch('fetchWorkspaces')
             store.dispatch('fetchTemplates')
         })
+
+        /*const findTemplate = (value: number) => {
+            const temp = store.state.template
+            temp.forEach(item => {
+                if(item.id == value) {
+                    templatesName.value = item.component
+                }
+            })
+            console.log(templatesName.value)
+        }*/
 
         const removeWorkspace = (obj: Record<string,unknown>) => {
             store.dispatch('removeWorkspace', obj)

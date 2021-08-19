@@ -1,17 +1,23 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import MainAdminPage from '../components/AdminPageComponents/main-admin-page.vue'
+import ContentPage from '../components/AdminPageComponents/content-page.vue'
 import Template2x2 from '../components/templates/template-2x2.vue'
+import Template2x1 from '../components/templates/template-2x1.vue'
 
 const routes: Array<RouteRecordRaw> = [
     {
         path: '/',
         name: 'Home',
-        component: MainAdminPage
+        component: ContentPage
     },
     {
         path: '/:id',
         name: 'template-2x2',
         component: Template2x2
+    },
+    {
+        path: '/:id',
+        name: 'template-2x1',
+        component: Template2x1
     }
 ]
 

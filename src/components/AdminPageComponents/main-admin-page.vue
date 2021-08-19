@@ -11,19 +11,17 @@
     <div class="main">
         <h3>Мои пространства</h3>
         <hr/>
-        <content-page></content-page>
+        <router-view/>
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent} from 'vue'
-import ContentPage from './content-page.vue'
+
 
 export default defineComponent({
     name: "main-admin-page",
-    components: {
-        ContentPage, 
-    }
+    
 })
 </script>
 
