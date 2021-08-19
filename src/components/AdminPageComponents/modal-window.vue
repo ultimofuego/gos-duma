@@ -97,6 +97,7 @@ export default defineComponent({
     }
 
     .modalForm {
+        font-size: 20px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -112,6 +113,7 @@ export default defineComponent({
             border: 1px solid #60a3d8;
         }
         button {
+            margin-top: 20px;
             display: inline-block;
             width: 30%;
             font-weight: 400;

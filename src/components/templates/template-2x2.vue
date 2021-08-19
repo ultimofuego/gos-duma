@@ -2,48 +2,29 @@
     <div class="grid2x2">
         <div class="box box1">
             <dropdown index="0"></dropdown>
-            <div v-if="flagComponentName(0)">
-                <component class="first_component" :is="getComponentName(0)" index="0" url=""></component>
-            </div>
         </div>
         <div class="box box2">
             <dropdown index="1"></dropdown>
-            <div v-if="flagComponentName(1)">
-                <component class="first_component" :is="getComponentName(1)" index="1" url=""></component>
-            </div>
         </div>
         <div class="box box3">
             <dropdown index="2"></dropdown>
-            <div v-if="flagComponentName(2)">
-                <component class="first_component" :is="getComponentName(2)" index="2" url=""></component>
-            </div>
         </div>
         <div class="box box4">
             <dropdown index="3"></dropdown>
-            <div v-if="flagComponentName(3)">
-                <component class="first_component" :is="getComponentName(3)" index="3" url=""></component>
-            </div>
         </div>
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref} from 'vue'
+import { defineComponent} from 'vue'
 import Dropdown from '../AdminPageComponents/dropdown.vue'
-import Red from '../widgets/red.vue'
-import Yellow from '../widgets/yellow.vue'
-import Green from '../widgets/green.vue'
-import Image from '../widgets/image.vue'
-import { useStore } from 'vuex'
-import Widget from '@/types/Widget'
-import ResponseData from '@/types/ResponseData'
-import getItem from '@/services/DataService'
+
 
 export default defineComponent({
     name: 'template-2x2',
-    components: { Dropdown, Red, Yellow, Green, Image },
+    components: { Dropdown },
     setup() {
-        const placeholders = ref([])
+        /*const placeholders = ref([])
         const store = useStore()
         const widgets : Widget[] = []
 
@@ -66,7 +47,7 @@ export default defineComponent({
     
         return {
             placeholders, store, getComponentName, flagComponentName
-        }
+        }*/
     }
 })
 </script>

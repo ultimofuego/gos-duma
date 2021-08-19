@@ -11,62 +11,42 @@
     <div class="main">
         <h3>Мои пространства</h3>
         <hr/>
-        <div class="btn-container">
-            <span>Добавить пространство</span>
-            <button @click="showModal">+</button>
-        </div>
-        <ul class="list-of-spaces">
-            <li
-                v-for="(workspace, index) in $store.state.workspaces"
-                :key="index">
-                <a :href="workspace.id">{{workspace.name}}</a>
-                <button class="btn" @click="removeWorkspace({id: workspace.id, idx: index})">X</button>
-            </li>
-        </ul>
-        <!-- <template-2x2 v-if="$store.getters.workspaces.content.length"></template-2x2> -->
+        <content-page></content-page>
     </div>
-    <modal-window v-if="show" @closeModal="close"></modal-window>
 </template>
 
 <script lang="ts">
 import { defineComponent} from 'vue'
-import ModalWindow from './modal-window.vue'
-import { ref, onMounted } from 'vue'
-import { useStore } from 'vuex'
+import ContentPage from './content-page.vue'
 
 export default defineComponent({
     name: "main-admin-page",
     components: {
-        ModalWindow, 
-    },
-    setup() {
-        const show = ref(false)
-        const store = useStore()
-
-        onMounted(() => {
-            store.dispatch('fetchWorkspaces')
-            store.dispatch('fetchTemplates')
-        })
-
-        const removeWorkspace = (obj: Record<string,unknown>) => {
-            store.dispatch('removeWorkspace', obj)
-        }
-
-        const close = (val: boolean) => {
-            show.value = val
-        }
-        const showModal = () => {
-            show.value = true
-        }
-
-        return {
-            show, store, close, showModal, removeWorkspace
-        }
+        ContentPage, 
     }
 })
 </script>
 
 <style scoped lang="scss">
+    .main {
+        margin-left: 360px;
+        margin-top: 16px;
+        font-size: 28px;
+        padding: 0 10px;
+        color: #0e2538;
+
+        h3 {
+            font-weight: 300;
+        }
+
+        hr {
+            border: none;
+            background-color: #0e2538;
+            color: #0e2538;
+            height: 2px;
+        }
+    }
+
     .sidenav {
         height: 100%;
         width: 300px;
@@ -97,107 +77,6 @@ export default defineComponent({
                 color: #f1f1f1;
             }
         }
-    }
-
-    .main {
-        margin-left: 360px;
-        margin-top: 16px;
-        font-size: 28px;
-        padding: 0 10px;
-        color: #0e2538;
-
-        h3 {
-            font-weight: 300;
-        }
-
-        hr {
-            border: none;
-            background-color: #0e2538;
-            color: #0e2538;
-            height: 2px;
-        }
-
-        .btn-container {
-            font-size: 20px;
-            span {
-                padding-right: 20px;
-            }
-            button {
-                display: inline-block;
-                width: 1.7em;
-                font-weight: 700;
-                color: rgba(255,255,255,.9);
-                background: #60a3d8 linear-gradient(#89bbe2, #60a3d8 50%, #378bce);
-                outline: none;
-                border-radius: 6px;
-                border: 0;
-                box-shadow: inset rgba(255,255,255,.5) 1px 1px;
-                &:hover {
-                    color: rgb(255,255,255);
-                    background-image: linear-gradient(#9dc7e7, #74afdd 50%, #378bce);
-                }
-                &:active {
-                    color: rgb(255,255,255);
-                    border-color: #2970a9;
-                    background-image: linear-gradient(#5796c8, #6aa2ce);
-                    box-shadow: none;
-                }
-            }
-        }
-
-        .list-of-spaces {
-            padding-top: 30px;
-            font-size: 20px;
-            padding-left: 150px;
-            list-style: none;
-            font-weight: 400;
-            color: black;
-            li { 
-            padding-bottom: 14px;
-            display: flex;
-            align-items: center;
-            &:before {
-                display: block;
-                content: '';
-                background: #5486D1;
-                width: 10px;
-                height: 10px;
-                border-radius: 10px;
-                margin-right: 20px;
-                }
-            }
-
-            a {
-                text-decoration: none;
-                &:visited {
-                    color: rgb(36, 36, 36);
-                }
-            }
-        }
-    }
-
-    .btn {
-        display: inline-block;	
-	    padding: 0px 7px;
-        margin-left: 20px;
-        outline: none;
-	    border: none;  
-	    border-radius: 4px;
-	    height: 20px;
-	    line-height: 8px;
-	    font-size: 8px;
-	    font-weight: 900;
-	    text-decoration: none;
-	    color: #fff;
-	    background: #60a3d8 linear-gradient(#89bbe2, #60a3d8 50%, #378bce);
-	    position: relative;
-	    overflow:hidden;
-	    vertical-align: top;
-	    cursor: pointer;
-	    user-select: none;
-	    appearance: none;
-	    touch-action: manipulation; 
-	    z-index: 1;
     }
 
 
