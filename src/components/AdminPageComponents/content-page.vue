@@ -1,5 +1,4 @@
 <template>
-    
     <div class="main-container">
         <div class="btn-container">
             <span>Добавить пространство</span>
@@ -8,14 +7,12 @@
         <ul class="list-of-spaces">
             <li
                 v-for="(workspace, index) in $store.state.workspaces"
-                :key="index">
-                <!-- <a :href="workspace.id">{{workspace.name}}</a> -->
+                :key="index"
+            >
                 <router-link
-                :to = " {
-                    name: `template-2x2`,
-                    path: `/${workspace.templateId}`
-                } "
-                >{{workspace.name}}</router-link>
+                :to="{ name: 'template-store', path: `/${workspace.id}`, params: {id: workspace.id, templatesName: findTemplate(workspace.templateId)}}"
+                >{{workspace.name}}
+                </router-link>
                 <button class="btn" @click="removeWorkspace({id: workspace.id, idx: index})">X</button>
             </li>
         </ul>
@@ -28,33 +25,31 @@
 import { defineComponent } from 'vue'
 import { ref, onMounted } from 'vue'
 import { useStore } from 'vuex'
-import { useRoute } from 'vue-router'
 import ModalWindow from './modal-window.vue'
 
 export default defineComponent({
     components: {
-        ModalWindow, 
+        ModalWindow
     },
     setup() {
-        const router = useRoute()
         const show = ref(false)
         const store = useStore()
-        //const templatesName = ref('')
+        const templatesName = ref('')
 
         onMounted(() => {
             store.dispatch('fetchWorkspaces')
             store.dispatch('fetchTemplates')
         })
 
-        /*const findTemplate = (value: number) => {
+        const findTemplate = (value: number) => {
             const temp = store.state.template
             temp.forEach(item => {
                 if(item.id == value) {
                     templatesName.value = item.component
                 }
             })
-            console.log(templatesName.value)
-        }*/
+            return templatesName.value
+        }
 
         const removeWorkspace = (obj: Record<string,unknown>) => {
             store.dispatch('removeWorkspace', obj)
@@ -68,7 +63,7 @@ export default defineComponent({
         }
 
         return {
-            show, store, close, showModal, removeWorkspace
+            templatesName, show, store, close, showModal, removeWorkspace, findTemplate
         }
     },
 })
