@@ -41,7 +41,6 @@ export default defineComponent({
         const store = useStore()
 
         const addSpaceName = () => {
-            console.log(workspace)
             store.state.template.forEach((item) => {
                 if(item.name == template_name.value) {
                     workspace.templateId = item.id

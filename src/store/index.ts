@@ -3,7 +3,12 @@ import axios from 'axios'
 import getItem from '@/services/DataService'
 import ResponseData from '@/types/ResponseData'
 
-export type State = {list_items: any[], template: any[]}
+export type State = {
+  list_items: any[],
+  template: any[],
+  widgets: any[],
+  workspaces: any[]
+}
 
 export const store = createStore({
   state<State>() {
@@ -11,7 +16,8 @@ export const store = createStore({
       list_items: <any>[],
       workspaces: <any>[],
       widgets: <any>[],
-      template: <any>[]
+      template: <any>[],
+
     }
   },
   actions: {
@@ -44,7 +50,6 @@ export const store = createStore({
     },
     pushToDB( {commit}, item ) {
       axios.post('/back/workspace', item).then((response) => {
-        console.log(response.data)
         commit('addWorkspace', response.data)} )
     },
     removeWorkspace( {commit}, obj ) {

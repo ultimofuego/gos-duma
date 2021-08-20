@@ -10,13 +10,12 @@
                 :key="index"
             >
                 <router-link
-                :to="{ name: 'template-store', path: `/${workspace.id}`, params: {id: workspace.id, templatesName: findTemplate(workspace.templateId)}}"
+                :to="{ name: 'template-store', path: `/${workspace.id}`, params: { id: workspace.id }}"
                 >{{workspace.name}}
                 </router-link>
                 <button class="btn" @click="removeWorkspace({id: workspace.id, idx: index})">X</button>
             </li>
         </ul>
-        <!-- <template-2x2 v-if="$store.getters.workspaces.content.length"></template-2x2> -->
         <modal-window v-if="show" @closeModal="close"></modal-window>
     </div>
 </template>
@@ -41,16 +40,6 @@ export default defineComponent({
             store.dispatch('fetchTemplates')
         })
 
-        const findTemplate = (value: number) => {
-            const temp = store.state.template
-            temp.forEach(item => {
-                if(item.id == value) {
-                    templatesName.value = item.component
-                }
-            })
-            return templatesName.value
-        }
-
         const removeWorkspace = (obj: Record<string,unknown>) => {
             store.dispatch('removeWorkspace', obj)
         }
@@ -63,7 +52,7 @@ export default defineComponent({
         }
 
         return {
-            templatesName, show, store, close, showModal, removeWorkspace, findTemplate
+            templatesName, show, store, close, showModal, removeWorkspace
         }
     },
 })
