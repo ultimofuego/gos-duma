@@ -1,23 +1,28 @@
 <template>
     <div class="main-container">
-        <div class="btn-container">
-            <span>Добавить пространство</span>
-            <button @click="showModal">+</button>
-        </div>
-        <ul class="list-of-spaces">
+        <div class="background">
+            <div class="btn-container">
+                <span>Добавить пространство</span>
+                <button @click="showModal">+</button>
+            </div>
+
+            <ul class="list-of-spaces">
             <li
                 v-for="(workspace, index) in $store.state.workspaces"
                 :key="index"
             >
-                <router-link
+                <a @click="routeMeTo(workspace.id)">{{workspace.name}}</a>
+                
+                <!-- <router-link
                 :to="{ name: 'template-store', path: `/${workspace.id}`, params: { id: workspace.id }}"
                 >{{workspace.name}}
-                </router-link>
+                </router-link> -->
                 <button class="btn" @click="removeWorkspace({id: workspace.id, idx: index})">X</button>
             </li>
         </ul>
-        <modal-window v-if="show" @closeModal="close"></modal-window>
+        </div>
     </div>
+    <modal-window v-if="show" @closeModal="close"></modal-window>
 </template>
 
 <script lang="ts">
@@ -25,6 +30,8 @@ import { defineComponent } from 'vue'
 import { ref, onMounted } from 'vue'
 import { useStore } from 'vuex'
 import ModalWindow from './modal-window.vue'
+import router from '@/router/index'
+import axios from 'axios'
 
 export default defineComponent({
     components: {
@@ -38,7 +45,19 @@ export default defineComponent({
         onMounted(() => {
             store.dispatch('fetchWorkspaces')
             store.dispatch('fetchTemplates')
+       
+            axios.get('back/widget').then(res => store.commit('addWidget', res.data.content))
+            console.log(store.state.widgets)
         })
+
+        const routeMeTo = (workspace_id: string) => {
+            console.log(workspace_id)
+            router.push({
+                name: 'template-store',
+                path: `/${workspace_id}`,
+                params: { id: workspace_id }
+            })
+        }
 
         const removeWorkspace = (obj: Record<string,unknown>) => {
             store.dispatch('removeWorkspace', obj)
@@ -52,77 +71,102 @@ export default defineComponent({
         }
 
         return {
-            templatesName, show, store, close, showModal, removeWorkspace
+            templatesName, show, store, close, showModal, removeWorkspace, routeMeTo
         }
     },
 })
 </script>
 
 <style scoped lang="scss">
+    $admin-maincolor: #5A8AB8;
+    $admin-secondcolor: #9CC2E6;
+    $admin-textcolor: #749DC3;
+
     .main-container {
+        width: 80%;
+        position: absolute;
+        height: 90%;
         margin-left: -10px;
-        margin-top: 16px;
+        margin-top: 20px;
         font-size: 28px;
         padding: 0 10px;
-        color: #0e2538;
-
+        color: $admin-textcolor;
+        font-weight: 500;
         .btn-container {
             font-size: 20px;
+            display: flex;
+            align-items: center;
+            color: $admin-textcolor;
+            margin-bottom: 20px;
             span {
                 padding-right: 20px;
             }
             button {
+                cursor: pointer;
                 display: inline-block;
-                width: 1.7em;
+                width: 1.1em;
+                line-height: 1.1em;
                 font-weight: 700;
                 color: rgba(255,255,255,.9);
-                background: #60a3d8 linear-gradient(#89bbe2, #60a3d8 50%, #378bce);
+                background: linear-gradient(0deg, $admin-maincolor 0%, $admin-secondcolor 100%);
                 outline: none;
                 border-radius: 6px;
                 border: 0;
                 box-shadow: inset rgba(255,255,255,.5) 1px 1px;
                 &:hover {
                     color: rgb(255,255,255);
-                    background-image: linear-gradient(#9dc7e7, #74afdd 50%, #378bce);
+                    background-image: linear-gradient(0deg, $admin-secondcolor 0%, $admin-maincolor 100%);
                 }
                 &:active {
                     color: rgb(255,255,255);
                     border-color: #2970a9;
-                    background-image: linear-gradient(#5796c8, #6aa2ce);
+                    background-image: $admin-maincolor;
                     box-shadow: none;
                 }
             }
         }
 
-        .list-of-spaces {
-            padding-top: 30px;
-            font-size: 20px;
-            padding-left: 0px;
-            list-style: none;
-            font-weight: 400;
-            color: black;
-            li { 
-            padding-bottom: 14px;
-            display: flex;
-            align-items: center;
-            &:before {
-                display: block;
-                content: '';
-                background: #5486D1;
-                width: 10px;
-                height: 10px;
+        .background {
+            border-radius: 10px;
+            background-color: lighten($admin-secondcolor, 20%);
+            margin-right: -20px;
+            margin-top: 20px;
+            padding-top: 20px;
+            padding-left: 40px;
+            height: 90%;
+            .list-of-spaces {
                 border-radius: 10px;
-                margin-right: 20px;
+                padding: 40px;
+                background-color: white;
+                width: 300px;
+                font-size: 20px;
+                list-style: none;
+                font-weight: 400;
+                li { 
+                padding-bottom: 14px;
+                display: flex;
+                align-items: center;
+                &:before {
+                    display: block;
+                    content: '';
+                    background: #5486D1;
+                    width: 10px;
+                    height: 10px;
+                    border-radius: 10px;
+                    margin-right: 20px;
+                    }
                 }
-            }
 
-            a {
-                text-decoration: none;
-                &:visited {
-                    color: rgb(36, 36, 36);
+                a {
+                    text-decoration: none;
+                    &:visited {
+                        color: rgb(36, 36, 36);
+                    }
                 }
             }
         }
+
+        
     }
 
     .btn {

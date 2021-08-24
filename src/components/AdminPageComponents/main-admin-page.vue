@@ -1,18 +1,21 @@
 <template>
-    <div class="sidenav">
-        <h3>Личный кабинет</h3>
-        <hr/>
-        <a href="#">Мой профиль</a>
-        <a href="#">Мои события</a>
-        <a href="#">Мои документы</a>
-        <a href="#">Мои пространства</a>
-        <a href="#">Выйти</a>
+<div class="container">
+    <div class="sidenav_wrapper">
+        <div class="sidenav">
+            <h3>Личный кабинет</h3>
+            <a href="#">Мой профиль</a>
+            <a href="#">Мои события</a>
+            <a href="#">Мои документы</a>
+            <a href="#">Мои пространства</a>
+            <a href="#">Выйти</a>
+        </div>
     </div>
+   
     <div class="main">
         <h3>Мои пространства</h3>
-        <hr/>
         <router-view/>
     </div>
+</div>
 </template>
 
 <script lang="ts">
@@ -26,53 +29,86 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+    $sidenav-maincolor: white;
+    $sidenav-secondcolor: white;
+    $sidenav-textcolor: #749DC3;
+
+    .container {
+        font-size: 20px;
+        min-height: 100vh;
+    }
+
     .main {
-        margin-left: 360px;
-        margin-top: 16px;
-        font-size: 28px;
-        padding: 0 10px;
+        padding-top: 25px;
         color: #0e2538;
-
+        width: 100%;
+        padding-left: 300px;
+        min-height: 100vh;
+        color: $sidenav-textcolor;
         h3 {
-            font-weight: 300;
+            font-weight: 400;
         }
-
-        hr {
-            border: none;
-            background-color: #0e2538;
-            color: #0e2538;
-            height: 2px;
-        }
+    }
+    
+    .sidenav_wrapper {
+        position: fixed;
+        left: 0px;
+        width: 300px;
+        height: 100%;
     }
 
     .sidenav {
-        height: 100%;
         width: 300px;
         z-index: 1;
-        position: fixed;
-        top: 0;
-        left: 0;
-        background: #60a3d8 linear-gradient(#89bbe2, #60a3d8 50%, #378bce);
+        background: $sidenav-maincolor;
+        background: linear-gradient(180deg, $sidenav-maincolor 50%, $sidenav-secondcolor 100%);
         overflow-x: hidden;
-        padding-top: 16px;
-
+        padding-top: 25px;
+        padding-left: 40px;
+        color: $sidenav-textcolor;
+        position: absolute;
+        top: 0;
         h3 {
-            padding: 6px 8px 8px 16px;
-            color: white;
-            font-size: 28px;
-            font-weight: 400;
+            font-weight: 500;
+            padding-bottom: 25px;
         }
 
         a {
-            padding: 6px 8px 6px 16px;
+            padding-bottom: 10px;
+            padding-top: 10px;
             text-decoration: none;
-            font-size: 25px;
-            font-weight: 200;
-            color: white;
+            font-size: 20px;
+            font-weight: 500;
             display: block;
-
+            color: $sidenav-textcolor;
+            position: relative;
+            width: 90%;
+            transition: 0.1s;
+            &:after {
+                content: "";
+                display: block;
+                background-color: darken($sidenav-textcolor, 20%);
+                width: 2px;
+                height: 100%;
+                position: absolute;
+                right: 0;
+                top: 0;
+                opacity: 0;
+            }
             &:hover {
-                color: #f1f1f1;
+                color: darken($sidenav-textcolor, 20%);
+                &:after {
+                    content: "";
+                    display: block;
+                    background-color: darken($sidenav-textcolor, 20%);
+                    width: 2px;
+                    height: 100%;
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    opacity: 1;
+                    transition: 0.1s;
+                }
             }
         }
     }

@@ -7,7 +7,7 @@
             <slot name="body">
                 <form class="modalForm" @submit.prevent="addSpaceName">
                     <label>Введите название пространства</label>
-                    <input type="string" v-model="workspace.name" id="spacename" placeholder="Workspace name" required>
+                    <input type="string" v-model="workspace.name" placeholder="Workspace name" required>
                     <label>Выберите шаблон</label>
                     <select v-model="template_name">
                         <option v-for="(template,index) in $store.state.template" :key="index">{{template.name}}</option>
@@ -31,13 +31,10 @@ export default defineComponent({
     setup(props, {emit}) {
 
         const workspace = reactive({
-            id: '',
             name: '',
             templateId: ''
         })
-
         const template_name = ref('')
-
         const store = useStore()
 
         const addSpaceName = () => {

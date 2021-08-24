@@ -10,13 +10,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent} from 'vue'
+import { defineComponent, onMounted} from 'vue'
+import { useStore } from 'vuex'
 import Dropdown from '../AdminPageComponents/dropdown.vue'
 
 
 export default defineComponent({
     name: 'template-2x2',
-    components: { Dropdown }
+    components: { Dropdown },
+    setup() {
+        const store = useStore()
+    }
 })
 </script>
 
@@ -26,11 +30,11 @@ export default defineComponent({
         display: flex;
         flex-wrap: wrap;
         flex-direction: row;
-        height: 1400px;
+        min-height: 600px;
 
         & > div {
             display: flex; 
-            flex-basis: calc(50% - 40px);  
+            flex-basis: calc(50% - 10px);  
             justify-content: center;
             flex-direction: column;
 

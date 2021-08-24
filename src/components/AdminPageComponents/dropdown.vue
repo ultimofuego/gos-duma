@@ -4,18 +4,23 @@
             Добавить виджет
         </button>
         <div v-if="isOpen[index]" class="dropdown-menu">
-            <button class="dropdown-item" type="button" value="Red" @click="chooseOption(indexOfDropdown, $event)">Red</button>
-            <button class="dropdown-item" type="button" value="Yellow" @click="chooseOption(indexOfDropdown, $event)">Yellow</button>
-            <button class="dropdown-item" type="button" value="Green" @click="chooseOption(indexOfDropdown, $event)">Green</button>
-            <button class="dropdown-item" type="button" value="Image" @click="chooseOption(indexOfDropdown, $event)">Image</button>
+            <button
+            class="dropdown-item"
+            type="button"
+            v-for="(widget, index) in store.state.widgets"
+            :key="index"
+            @click="chooseOption(indexOfDropdown, $event)">
+                {{widget.name}}
+            </button>
         </div>
     </div>
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent, onMounted } from 'vue'
 import { ref } from 'vue'
 import { useStore } from 'vuex'
+import axios from 'axios'
 
 export default defineComponent({
     name: 'dropdown',
@@ -24,6 +29,12 @@ export default defineComponent({
         const indexOfDropdown = ref(props.index)
         const isOpen = ref([false, false, false, false])
         const store = useStore()
+
+        onMounted(() => {
+            axios.get('back/widget').then(res => {
+                store.commit('updateWidgets', res.data.content)
+            })
+        })
 
         const toggleDropdown = (index) => {
             isOpen.value[index] = !isOpen.value[index]

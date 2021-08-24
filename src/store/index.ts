@@ -21,7 +21,7 @@ export const store = createStore({
     }
   },
   actions: {
-    fetchAllWidgets( {commit} ) {
+    fetchWidgets( {commit} ) {
       axios.get('/back/widget').then((response) => { commit('addWidget', response.data.content)} )
       .catch((error) => {
         console.log(error)
@@ -29,7 +29,7 @@ export const store = createStore({
       })
     },
     fetchWorkspaces( {commit} ) {
-        getItem('/workspace/all').then((response: ResponseData) => {
+        getItem('/workspace').then((response: ResponseData) => {
         commit('updateWorkspaces', response.data.content)
         return response.data.content
       })
@@ -39,7 +39,7 @@ export const store = createStore({
       })
     },
     fetchTemplates( {commit} ) {
-      getItem('template/all').then((response: ResponseData) => {
+      getItem('template').then((response: ResponseData) => {
         commit('updateTemplates', response.data.content)
         return response.data.content
       })
@@ -50,6 +50,7 @@ export const store = createStore({
     },
     pushToDB( {commit}, item ) {
       axios.post('/back/workspace', item).then((response) => {
+        console.log(response)
         commit('addWorkspace', response.data)} )
     },
     removeWorkspace( {commit}, obj ) {
@@ -66,8 +67,8 @@ export const store = createStore({
     addWorkspace(state, workspaces) {
       state.workspaces.push(workspaces)
     },
-    addWidget(state, widgets) {
-      state.widgets.push(widgets)
+    addWidget(state, widget) {
+      state.widgets.push(widget)
     },
     removeListItem(state, index) {
       state.list_items.splice(index, 1)
@@ -80,6 +81,9 @@ export const store = createStore({
     },
     updateTemplates(state, template) {
       state.template = template
+    },
+    updateWidgets(state, widgets) {
+      state.widgets = widgets
     }
   },
   getters: {

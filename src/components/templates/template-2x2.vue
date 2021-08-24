@@ -58,11 +58,11 @@ export default defineComponent({
         display: flex;
         flex-wrap: wrap;
         flex-direction: row;
-        height: 1400px;
+        height: 1200px;
 
         & > div {
             display: flex; 
-            flex-basis: calc(50% - 40px);  
+            flex-basis: calc(50% - 150px);  
             justify-content: center;
             flex-direction: column;
 
