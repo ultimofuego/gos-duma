@@ -134,14 +134,18 @@ export default defineComponent({
             padding-top: 20px;
             padding-left: 40px;
             height: 90%;
+            display: inline-block;
+            flex-direction: column;
+            min-width: 100%;
             .list-of-spaces {
                 border-radius: 10px;
                 padding: 40px;
                 background-color: white;
-                width: 300px;
                 font-size: 20px;
                 list-style: none;
                 font-weight: 400;
+                display: inline-block;
+                vertical-align: center;
                 li { 
                 padding-bottom: 14px;
                 display: flex;
@@ -159,8 +163,12 @@ export default defineComponent({
 
                 a {
                     text-decoration: none;
+                    cursor: pointer;
                     &:visited {
                         color: rgb(36, 36, 36);
+                    }
+                    &:hover {
+                        color: darken($admin-textcolor, 20%);
                     }
                 }
             }

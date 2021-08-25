@@ -3,13 +3,13 @@
         <button class="btn" type="button" @click="toggleDropdown(indexOfDropdown)">
             Добавить виджет
         </button>
-        <div v-if="isOpen[index]" class="dropdown-menu">
+        <div v-if="isOpen[indexOfDropdown]" class="dropdown-menu">
             <button
             class="dropdown-item"
             type="button"
             v-for="(widget, index) in store.state.widgets"
             :key="index"
-            @click="chooseOption(indexOfDropdown, $event)">
+            @click="chooseOption($event)">
                 {{widget.name}}
             </button>
         </div>
@@ -17,18 +17,26 @@
 </template>
 
 <script>
-import { defineComponent, onMounted } from 'vue'
+import { defineComponent, onMounted, reactive } from 'vue'
 import { ref } from 'vue'
 import { useStore } from 'vuex'
 import axios from 'axios'
 
 export default defineComponent({
     name: 'dropdown',
-    props: ['index'],
+    props: ['code', 'space_id'],
     setup(props) {
-        const indexOfDropdown = ref(props.index)
+        const indexOfDropdown = ref(props.code)
+        const workspaceId = ref(props.space_id)
         const isOpen = ref([false, false, false, false])
+
         const store = useStore()
+
+        const wplaceholder = reactive({
+            workspaceId: '',
+            widgetId: '',
+            code: ''
+        })
 
         onMounted(() => {
             axios.get('back/widget').then(res => {
@@ -40,16 +48,15 @@ export default defineComponent({
             isOpen.value[index] = !isOpen.value[index]
         }
 
-        const chooseOption = (index, e) => {
-            const rv = store.getters.all_workspaces
-            for(let key in rv) {
-                rv[key].placeholders[index].component = e.target.value
-                if(rv[key].placeholders[index].component == 'Image') {
-                    rv[key].placeholders[index].properties.push({url: ''})
+        const chooseOption = (e) => {
+            store.state.widgets.forEach(widget => {
+                if(widget.name == e.target.textContent) {
+                    wplaceholder.workspaceId = workspaceId.value
+                    wplaceholder.widgetId = widget.id
+                    wplaceholder.code = indexOfDropdown.value
                 }
-            }
-            store.commit('updateWorkspaces', rv)
-            console.log(store.getters.all_workspaces)
+            })
+            console.log(wplaceholder)
         }
 
         return {

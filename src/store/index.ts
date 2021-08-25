@@ -7,7 +7,8 @@ export type State = {
   list_items: any[],
   template: any[],
   widgets: any[],
-  workspaces: any[]
+  workspaces: any[],
+  wplaceholders: any[]
 }
 
 export const store = createStore({
@@ -17,7 +18,7 @@ export const store = createStore({
       workspaces: <any>[],
       widgets: <any>[],
       template: <any>[],
-
+      wplaceholders: <any>[]
     }
   },
   actions: {
@@ -53,6 +54,12 @@ export const store = createStore({
         console.log(response)
         commit('addWorkspace', response.data)} )
     },
+    pushToDB_wplaceholders( {commit}, wplaceholder ) {
+      axios.post('/back/wplaceholder', wplaceholder).then((response) => {
+        console.log(response)
+        commit('addWplaceholder', response.data)
+      })
+    },
     removeWorkspace( {commit}, obj ) {
       axios.delete(`/back/workspace/${obj.id}`).then((response) => {
         console.log(response)
@@ -69,6 +76,9 @@ export const store = createStore({
     },
     addWidget(state, widget) {
       state.widgets.push(widget)
+    },
+    addWplaceholder(state, wplaceholder) {
+      state.wplaceholders.push(wplaceholder)
     },
     removeListItem(state, index) {
       state.list_items.splice(index, 1)

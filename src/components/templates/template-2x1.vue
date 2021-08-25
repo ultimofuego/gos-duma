@@ -1,25 +1,29 @@
 <template>
     <div class="grid2x2">
         <div class="box box1">
-            <dropdown index="0"></dropdown>
+            <dropdown :space_id="id" :code="0" :component_name="x"></dropdown>
         </div>
         <div class="box box2">
-            <dropdown index="1"></dropdown>
+            <dropdown :space_id="id" :code="1" :component_name="x"></dropdown>
         </div>
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted} from 'vue'
+import { defineComponent, onMounted, ref, reactive} from 'vue'
 import { useStore } from 'vuex'
 import Dropdown from '../AdminPageComponents/dropdown.vue'
-
+import axios from 'axios'
 
 export default defineComponent({
     name: 'template-2x2',
     components: { Dropdown },
-    setup() {
-        const store = useStore()
+    props: ['workspace_id'],
+    setup(props) {
+        const component_name = ref('')
+        const id = ref(props.workspace_id)
+
+        return { component_name, id }
     }
 })
 </script>

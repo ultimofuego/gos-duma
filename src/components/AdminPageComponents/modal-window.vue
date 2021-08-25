@@ -65,8 +65,12 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+    $modalwindow-maincolor: #5A8AB8;
+    $modalwindow-secondcolor: #9CC2E6;
+    $modalwindow-textcolor: #749DC3;
+
     .modal-backdrop {
-        background: rgba(0, 0, 0, 0.767);
+        background: rgba(0, 0, 0, 0.567);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -79,11 +83,11 @@ export default defineComponent({
         .modal {
             padding: 16px;
             position: fixed;
-            top: 40%;
-            left: 40%;
             width: 500px;
-            background: rgba(221, 228, 238, 0.933);
+            background: rgb(230, 230, 230);
             border-radius: 10px;
+            color: $modalwindow-textcolor;
+            font-weight: 500;
             .header { 
                 display: flex;
                 justify-content: space-between;
@@ -106,35 +110,59 @@ export default defineComponent({
             width: 80%;
             margin-bottom: 20px;
             border-radius: 10px;
-            border: 1px solid #60a3d8;
+            padding-left: 10px;
+            border: 1px solid $modalwindow-maincolor;
+            outline-color: $modalwindow-maincolor;
+            font-weight: 300;
         }
         button {
             margin-top: 20px;
             display: inline-block;
             width: 30%;
             font-weight: 400;
-            font-size: 18px;
+            font-size: 14px;
             text-transform: uppercase;
+            padding-top: 5px;
+            padding-bottom: 5px;
             color: rgba(255,255,255,.9);
-            background: #60a3d8 linear-gradient(#89bbe2, #60a3d8 50%, #378bce);
+            background: linear-gradient(0deg, $modalwindow-maincolor 0%, $modalwindow-secondcolor 100%);
             outline: none;
             border-radius: 6px;
             border: 0;
             box-shadow: inset rgba(255,255,255,.5) 1px 1px;
-
+            &:hover {
+                background: linear-gradient(180deg, $modalwindow-secondcolor 10%, $modalwindow-maincolor 90%);
+            }
         }
     }
 
     .closeBtn {
         display: inline-block;
-        width: 1.7em;
+        width: 1.6em;
+        line-height: 1.5em;
+        font-size: 14px;
         font-weight: 700;
         color: rgba(255,255,255,.9);
-        background: #60a3d8 linear-gradient(#89bbe2, #60a3d8 50%, #378bce);
+        background: linear-gradient(0deg, $modalwindow-maincolor 0%, $modalwindow-secondcolor 100%);
         outline: none;
         border-radius: 6px;
         border: 0;
         box-shadow: inset rgba(255,255,255,.5) 1px 1px;
+        &:hover {
+            background: linear-gradient(180deg, $modalwindow-secondcolor 0%, $modalwindow-maincolor 50%);
+        }
+    }
+
+    select {
+        font-weight: 200;
+        border: 1px solid $modalwindow-maincolor;
+        outline-color: $modalwindow-maincolor;
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 2px 5px;
+        option {
+            font-weight: 200;
+        }
     }
 
 </style>

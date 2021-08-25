@@ -1,6 +1,6 @@
 <template>
 <div class="main_container">
-        <component :is="templatesName"></component>
+        <component :is="templatesName" :workspace_id="id"></component>
 </div>
 </template>
 

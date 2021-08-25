@@ -24,6 +24,7 @@ export default defineComponent({
     name: 'template-2x2',
     components: { Dropdown },
     setup() {
+
         /*const placeholders = ref([])
         const store = useStore()
         const widgets : Widget[] = []
@@ -53,6 +54,10 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+    $template-maincolor: #E89E58;
+    $template-secondcolor: #EBA96C;
+    $template-textcolor: #749DC3;
+
     .grid2x2 {
         min-height: 100%;
         display: flex;
@@ -74,10 +79,10 @@ export default defineComponent({
         }
 
         .box { position: relative; margin: 5px; border-radius: 10px; }
-        .box1 { background: linear-gradient(#9dc7e7, #74afdd 50%, #6d96b8); }
-        .box2 { background: linear-gradient(#9dc7e7, #74afdd 50%, #6d96b8); }
-        .box3 { background: linear-gradient(#9dc7e7, #74afdd 50%, #6d96b8); }
-        .box4 { background: linear-gradient(#9dc7e7, #74afdd 50%, #6d96b8); }
+        .box1 { background: linear-gradient(0deg, $template-maincolor, $template-secondcolor 50%); }
+        .box2 { background: linear-gradient(0deg, $template-maincolor, $template-secondcolor 50%); }
+        .box3 { background: linear-gradient(0deg, $template-maincolor, $template-secondcolor 50%); }
+        .box4 { background: linear-gradient(0deg, $template-maincolor, $template-secondcolor 50%); }
     }
 
     

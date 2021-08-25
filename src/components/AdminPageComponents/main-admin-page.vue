@@ -6,7 +6,7 @@
             <a href="#">Мой профиль</a>
             <a href="#">Мои события</a>
             <a href="#">Мои документы</a>
-            <a href="#">Мои пространства</a>
+            <a href="/">Мои пространства</a>
             <a href="#">Выйти</a>
         </div>
     </div>
@@ -108,6 +108,7 @@ export default defineComponent({
                     top: 0;
                     opacity: 1;
                     transition: 0.1s;
+                    
                 }
             }
         }
